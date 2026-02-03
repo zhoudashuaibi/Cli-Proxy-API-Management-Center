@@ -1,10 +1,18 @@
 /**
- * SCSS 混入
+ * SCSS 混入 - 现代 Glassmorphism 效果集
+ *
+ * 设计理念：
+ * 1. 精致的玻璃态效果 - 多层模糊 + 光晕边框 + 柔和阴影
+ * 2. 流畅的交互动画 - 每个悬浮、点击都有反馈
+ * 3. 可组合的效果 - 基础效果可叠加使用
  */
 
 @use './variables.scss' as *;
 
+// ============================================
 // 响应式断点
+// ============================================
+
 @mixin mobile {
   @media (max-width: #{$breakpoint-mobile}) {
     @content;
@@ -23,21 +31,37 @@
   }
 }
 
-// Flexbox 居中
+// ============================================
+// 布局工具
+// ============================================
+
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// 文本截断
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+// ============================================
+// 文本工具
+// ============================================
+
 @mixin text-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-// 多行文本截断
 @mixin text-ellipsis-multiline($lines: 2) {
   display: -webkit-box;
   -webkit-line-clamp: $lines;
@@ -45,7 +69,10 @@
   overflow: hidden;
 }
 
+// ============================================
 // 按钮重置
+// ============================================
+
 @mixin button-reset {
   border: none;
   background: none;
@@ -56,32 +83,31 @@
   color: inherit;
   outline: none;
 
-  &:focus {
-    outline: 2px solid $primary-color;
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 }
 
 // ============================================
-// Glassmorphism Effects
+// Glassmorphism 效果系统
 // ============================================
 
-// 玻璃态效果 - 基础版
-@mixin glass-effect($blur: 12px, $opacity: 0.7) {
-  background: rgba(var(--glass-bg-rgb, 255, 255, 255), $opacity);
+// 核心玻璃态效果 - 基础版
+@mixin glass-effect($blur: var(--glass-blur)) {
   background: var(--glass-bg);
   backdrop-filter: blur($blur);
   -webkit-backdrop-filter: blur($blur);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border-subtle);
   box-shadow: var(--glass-shadow);
   position: relative;
 }
 
-// 玻璃态效果 - 带高光
-@mixin glass-effect-highlight($blur: 12px) {
+// 玻璃态效果 - 带顶部高光
+@mixin glass-effect-highlight($blur: var(--glass-blur)) {
   @include glass-effect($blur);
 
-  // 顶部高光效果
+  // 顶部高光效果 - 模拟光线反射
   &::before {
     content: '';
     position: absolute;
@@ -91,89 +117,342 @@
     background: linear-gradient(
       180deg,
       var(--glass-highlight) 0%,
-      rgba(255, 255, 255, 0) 50%
+      transparent 40%
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    opacity: 0.8;
   }
 }
 
-// 玻璃态卡片
-@mixin glass-card($blur: 12px, $radius: $radius-lg) {
+// 玻璃态效果 - 带彩色边框光晕
+@mixin glass-effect-glow($blur: var(--glass-blur), $color: var(--primary-color)) {
+  @include glass-effect($blur);
+  border-color: var(--glass-border-glow);
+  box-shadow:
+    var(--glass-shadow),
+    0 0 20px rgba($color, 0.15);
+}
+
+// 玻璃态卡片 - 完整版
+@mixin glass-card($blur: var(--glass-blur), $radius: $radius-lg) {
   @include glass-effect-highlight($blur);
   border-radius: $radius;
   overflow: hidden;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
-// 玻璃态悬浮效果
+// 玻璃态卡片 - 简洁版（无高光）
+@mixin glass-card-simple($blur: var(--glass-blur-sm), $radius: $radius-lg) {
+  @include glass-effect($blur);
+  border-radius: $radius;
+  overflow: hidden;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+// 玻璃态悬浮效果 - 上浮 + 阴影加深
 @mixin glass-hover {
   transition:
-    transform $transition-fast,
-    box-shadow $transition-fast,
-    background-color $transition-fast,
-    border-color $transition-fast;
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
   cursor: pointer;
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: var(--glass-shadow-lg);
-    border-color: var(--glass-border);
+    border-color: var(--glass-border-glow);
+    background: var(--glass-bg-hover);
   }
 
   &:active {
     transform: translateY(-2px);
+    transition-duration: 50ms;
+  }
+}
+
+// 玻璃态悬浮效果 - 微妙版（适合表格行等）
+@mixin glass-hover-subtle {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-glow);
   }
 }
 
 // 玻璃态按钮
 @mixin glass-button {
-  @include glass-effect(8px);
+  @include glass-effect(var(--glass-blur-sm));
   border-radius: $radius-md;
   padding: $spacing-sm $spacing-md;
   cursor: pointer;
-  transition: all $transition-fast;
+  font-weight: 600;
+  transition:
+    all var(--transition-fast),
+    transform var(--transition-micro);
 
   &:hover {
     background: var(--glass-bg-solid);
+    border-color: var(--primary-color);
     box-shadow: var(--glass-shadow-lg);
+    transform: translateY(-1px);
   }
 
   &:active {
-    transform: scale(0.98);
+    transform: scale(0.98) translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
   }
 }
 
 // 玻璃态输入框
 @mixin glass-input {
   background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
   border: 1px solid var(--glass-border-subtle);
   border-radius: $radius-md;
-  transition: all $transition-fast;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover {
+    border-color: var(--border-hover);
+  }
 
   &:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 3px var(--primary-soft);
     outline: none;
+    background: var(--glass-bg-solid);
   }
 }
 
 // 玻璃态导航栏
 @mixin glass-navbar {
-  background: var(--glass-bg-solid);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--glass-bg-dense);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
   border-bottom: 1px solid var(--glass-border-subtle);
-  box-shadow: var(--glass-shadow);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 }
 
 // 玻璃态侧边栏
 @mixin glass-sidebar {
   background: var(--glass-bg-solid);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
   border-right: 1px solid var(--glass-border-subtle);
+}
+
+// 玻璃态模态框
+@mixin glass-modal {
+  background: var(--glass-bg-dense);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+  border: 1px solid var(--glass-border);
+  border-radius: $radius-lg;
+  box-shadow: var(--glass-shadow-xl);
+}
+
+// 玻璃态下拉菜单
+@mixin glass-dropdown {
+  @include glass-effect(var(--glass-blur));
+  border-radius: $radius-md;
+  box-shadow: var(--glass-shadow-lg);
+  border-color: var(--glass-border);
+}
+
+// ============================================
+// 装饰效果
+// ============================================
+
+// 渐变装饰条（用于卡片顶部）
+@mixin gradient-bar($height: 3px, $gradient: var(--gradient-primary)) {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $height;
+    background: $gradient;
+    border-radius: $height / 2;
+  }
+}
+
+// 光晕装饰（用于图标背景）
+@mixin glow-bg($color: var(--primary-color), $opacity: 0.12) {
+  background: rgba($color, $opacity);
+  box-shadow: 0 0 20px rgba($color, $opacity / 2);
+}
+
+// 渐变文字
+@mixin gradient-text($gradient: var(--gradient-primary)) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// ============================================
+// 动画效果
+// ============================================
+
+// 淡入上移动画
+@mixin animate-fade-in-up($delay: 0ms, $duration: 400ms) {
+  animation: fade-in-up $duration cubic-bezier(0.4, 0, 0.2, 1) $delay both;
+}
+
+// 缩放进入动画
+@mixin animate-scale-in($delay: 0ms, $duration: 300ms) {
+  animation: scale-in $duration cubic-bezier(0.34, 1.56, 0.64, 1) $delay both;
+}
+
+// 骨架屏加载效果
+@mixin skeleton-loading {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: $radius-sm;
+}
+
+// 脉冲效果（用于状态指示器）
+@mixin pulse-effect($color: var(--success-color)) {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: rgba($color, 0.3);
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+}
+
+// ============================================
+// 交互反馈
+// ============================================
+
+// 按压效果
+@mixin press-effect {
+  transition: transform var(--transition-micro);
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// 闪烁高亮（用于新添加的项目）
+@mixin highlight-flash {
+  animation: highlight-flash 1s ease-out;
+}
+
+@keyframes highlight-flash {
+  0% {
+    background-color: var(--primary-soft);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+// ============================================
+// 滚动条样式
+// ============================================
+
+@mixin custom-scrollbar($width: 8px) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: calc($width / 2);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: calc($width / 2);
+    border: 2px solid var(--bg-tertiary);
+
+    &:hover {
+      background: var(--border-hover);
+    }
+  }
+}
+
+// 隐藏滚动条但保持可滚动
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// ============================================
+// 焦点样式
+// ============================================
+
+@mixin focus-ring($color: var(--primary-color)) {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color, 0.3);
+    border-color: $color;
+  }
+}
+
+// ============================================
+// 状态颜色
+// ============================================
+
+@mixin status-success {
+  color: var(--success-color);
+  background: var(--success-soft);
+  border-color: var(--success-badge-border);
+}
+
+@mixin status-warning {
+  color: var(--warning-color);
+  background: var(--warning-soft);
+  border-color: rgba(var(--warning-color), 0.3);
+}
+
+@mixin status-error {
+  color: var(--error-color);
+  background: var(--error-soft);
+  border-color: var(--failure-badge-border);
+}
+
+@mixin status-info {
+  color: var(--info-color);
+  background: var(--info-soft);
+  border-color: rgba(var(--info-color), 0.3);
 }

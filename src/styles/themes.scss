@@ -1,111 +1,449 @@
 /**
- * 主题样式
+ * 主题样式 - 现代 Glassmorphism 设计系统
+ *
+ * 设计理念：
+ * 1. 沉浸式 Mesh Gradient 背景 - 多层渐变创造深度感
+ * 2. 精致玻璃态效果 - 高斯模糊 + 微妙边框 + 柔和阴影
+ * 3. 丰富的颜色层次 - 主色调、强调色、语义色完美搭配
+ * 4. 流畅的动画过渡 - 每个交互都有精心设计的微动画
  */
 
-// 浅色主题（默认）
+// ============================================
+// 浅色主题
+// ============================================
 :root {
+  // ---- 核心背景色 ----
   --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --bg-tertiary: #e5e7eb;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-elevated: #ffffff;
 
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --text-tertiary: #9ca3af;
+  // ---- 文字颜色层次 ----
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-muted: #cbd5e1;
 
-  --border-color: #e5e7eb;
-  --border-hover: #d1d5db;
+  // ---- 边框系统 ----
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --border-active: #94a3b8;
 
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-active: #1d4ed8;
+  // ---- 主色调 - 优雅蓝紫渐变 ----
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-active: #4338ca;
+  --primary-soft: rgba(99, 102, 241, 0.12);
+  --primary-glow: rgba(99, 102, 241, 0.25);
 
+  // ---- 强调色 - 活力渐变 ----
+  --accent-color: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-soft: rgba(139, 92, 246, 0.12);
+
+  // ---- 语义色 ----
   --success-color: #10b981;
+  --success-soft: rgba(16, 185, 129, 0.12);
+  --success-glow: rgba(16, 185, 129, 0.25);
+
   --warning-color: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.12);
+
   --error-color: #ef4444;
-  --info-color: #3b82f6;
+  --danger-color: #ef4444;
+  --error-soft: rgba(239, 68, 68, 0.12);
+  --danger-soft: rgba(239, 68, 68, 0.12);
 
-  --success-badge-bg: #d1fae5;
-  --success-badge-text: #065f46;
-  --success-badge-border: #6ee7b7;
+  --info-color: #0ea5e9;
+  --info-soft: rgba(14, 165, 233, 0.12);
 
-  --failure-badge-bg: #fee2e2;
-  --failure-badge-text: #991b1b;
-  --failure-badge-border: #fca5a5;
+  // ---- 状态徽章 ----
+  --success-badge-bg: rgba(16, 185, 129, 0.1);
+  --success-badge-text: #059669;
+  --success-badge-border: rgba(16, 185, 129, 0.3);
 
-  --count-badge-bg: rgba(59, 130, 246, 0.14);
-  --count-badge-text: var(--primary-active);
+  --failure-badge-bg: rgba(239, 68, 68, 0.1);
+  --failure-badge-text: #dc2626;
+  --failure-badge-border: rgba(239, 68, 68, 0.3);
 
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --count-badge-bg: rgba(99, 102, 241, 0.1);
+  --count-badge-text: var(--primary-color);
 
-  // Glassmorphism System - Light
-  --glass-bg: rgba(255, 255, 255, 0.7);
+  // ---- 阴影系统 - 多层柔和阴影 ----
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.06);
+  --shadow:
+    0 4px 6px -1px rgba(15, 23, 42, 0.07),
+    0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-md:
+    0 12px 24px -4px rgba(15, 23, 42, 0.08),
+    0 4px 8px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg:
+    0 24px 48px -12px rgba(15, 23, 42, 0.12),
+    0 12px 24px -6px rgba(15, 23, 42, 0.06);
+  --shadow-xl:
+    0 32px 64px -16px rgba(15, 23, 42, 0.16),
+    0 16px 32px -8px rgba(15, 23, 42, 0.08);
+
+  // ---- Glassmorphism 核心系统 ----
+  --glass-bg: rgba(255, 255, 255, 0.65);
   --glass-bg-solid: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-border-subtle: rgba(200, 200, 200, 0.3);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
-  --glass-shadow-lg: 0 16px 48px 0 rgba(31, 38, 135, 0.12);
-  --glass-highlight: rgba(255, 255, 255, 0.5);
-  --glass-blur: 12px;
+  --glass-bg-hover: rgba(255, 255, 255, 0.75);
+  --glass-bg-dense: rgba(255, 255, 255, 0.92);
 
-  // Mesh Gradient Background - Light
+  // 玻璃边框 - 微妙的光晕效果
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-border-subtle: rgba(148, 163, 184, 0.2);
+  --glass-border-glow: rgba(99, 102, 241, 0.3);
+
+  // 玻璃阴影 - 柔和的深度感
+  --glass-shadow:
+    0 8px 32px rgba(15, 23, 42, 0.08),
+    0 4px 16px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --glass-shadow-lg:
+    0 20px 48px rgba(15, 23, 42, 0.12),
+    0 8px 24px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --glass-shadow-xl:
+    0 32px 64px rgba(15, 23, 42, 0.14),
+    0 16px 32px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  // 高光效果
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --glass-highlight-strong: rgba(255, 255, 255, 0.9);
+
+  // 模糊值
+  --glass-blur: 20px;
+  --glass-blur-sm: 12px;
+  --glass-blur-lg: 32px;
+
+  // ---- Mesh Gradient 背景 - 沉浸式多层渐变 ----
   --page-bg-gradient:
-    radial-gradient(ellipse 80% 50% at 20% -20%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% -10%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
-    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    /* 左上角 - 紫色光晕 */
+    radial-gradient(
+      ellipse 100% 80% at 0% 0%,
+      rgba(139, 92, 246, 0.15) 0%,
+      transparent 50%
+    ),
+    /* 右上角 - 蓝色光晕 */
+    radial-gradient(
+      ellipse 80% 60% at 100% 0%,
+      rgba(99, 102, 241, 0.12) 0%,
+      transparent 45%
+    ),
+    /* 右下角 - 青色光晕 */
+    radial-gradient(
+      ellipse 70% 50% at 100% 100%,
+      rgba(14, 165, 233, 0.08) 0%,
+      transparent 40%
+    ),
+    /* 左下角 - 粉色光晕 */
+    radial-gradient(
+      ellipse 60% 40% at 0% 100%,
+      rgba(244, 114, 182, 0.06) 0%,
+      transparent 35%
+    ),
+    /* 中央 - 微妙的渐变 */
+    radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 70%
+    ),
+    /* 底色 */
+    linear-gradient(
+      180deg,
+      #f8fafc 0%,
+      #f1f5f9 50%,
+      #e2e8f0 100%
+    );
+
+  // ---- 卡片悬浮渐变 ----
+  --card-hover-gradient: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.05) 0%,
+    rgba(139, 92, 246, 0.03) 100%
+  );
+
+  // ---- 动画变量 ----
+  --transition-micro: 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // ---- 彩色装饰渐变 ----
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  --gradient-info: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+  --gradient-mesh: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.8) 0%,
+    rgba(139, 92, 246, 0.8) 50%,
+    rgba(14, 165, 233, 0.8) 100%
+  );
 }
 
-// 深色主题（#191919）
+// ============================================
+// 深色主题 - 优雅的暗夜风格
+// ============================================
 [data-theme='dark'] {
-  --bg-primary: #202020;
-  --bg-secondary: #191919;
-  --bg-tertiary: #262626;
+  // ---- 核心背景色 - 深邃但不死黑 ----
+  --bg-primary: #0f0f14;
+  --bg-secondary: #15151c;
+  --bg-tertiary: #1c1c26;
+  --bg-elevated: #1a1a24;
 
-  --text-primary: #fafafa;
-  --text-secondary: #a3a3a3;
-  --text-tertiary: #737373;
+  // ---- 文字颜色层次 ----
+  --text-primary: #f8fafc;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-muted: #52525b;
 
-  --border-color: #262626;
-  --border-hover: #404040;
+  // ---- 边框系统 ----
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --border-active: rgba(255, 255, 255, 0.2);
 
-  --primary-color: #3b82f6;
-  --primary-hover: #60a5fa;
-  --primary-active: #93c5fd;
+  // ---- 主色调 - 明亮的蓝紫 ----
+  --primary-color: #818cf8;
+  --primary-hover: #a5b4fc;
+  --primary-active: #c7d2fe;
+  --primary-soft: rgba(129, 140, 248, 0.15);
+  --primary-glow: rgba(129, 140, 248, 0.35);
 
-  --success-color: #10b981;
-  --warning-color: #f59e0b;
-  --error-color: #ef4444;
-  --info-color: #3b82f6;
+  // ---- 强调色 ----
+  --accent-color: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-soft: rgba(167, 139, 250, 0.15);
 
-  --success-badge-bg: rgba(6, 78, 59, 0.3);
-  --success-badge-text: #6ee7b7;
-  --success-badge-border: #059669;
+  // ---- 语义色 - 深色主题下更鲜艳 ----
+  --success-color: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.15);
+  --success-glow: rgba(52, 211, 153, 0.35);
 
-  --failure-badge-bg: rgba(153, 27, 27, 0.3);
-  --failure-badge-text: #fca5a5;
-  --failure-badge-border: #dc2626;
+  --warning-color: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.15);
 
-  --count-badge-bg: rgba(59, 130, 246, 0.25);
-  --count-badge-text: var(--primary-active);
+  --error-color: #f87171;
+  --danger-color: #f87171;
+  --error-soft: rgba(248, 113, 113, 0.15);
+  --danger-soft: rgba(248, 113, 113, 0.15);
 
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+  --info-color: #38bdf8;
+  --info-soft: rgba(56, 189, 248, 0.15);
 
-  // Glassmorphism System - Dark
-  --glass-bg: rgba(32, 32, 32, 0.7);
-  --glass-bg-solid: rgba(32, 32, 32, 0.85);
+  // ---- 状态徽章 ----
+  --success-badge-bg: rgba(52, 211, 153, 0.15);
+  --success-badge-text: #34d399;
+  --success-badge-border: rgba(52, 211, 153, 0.4);
+
+  --failure-badge-bg: rgba(248, 113, 113, 0.15);
+  --failure-badge-text: #f87171;
+  --failure-badge-border: rgba(248, 113, 113, 0.4);
+
+  --count-badge-bg: rgba(129, 140, 248, 0.15);
+  --count-badge-text: var(--primary-color);
+
+  // ---- 阴影系统 - 深色下更重 ----
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --shadow-md:
+    0 12px 24px -4px rgba(0, 0, 0, 0.35),
+    0 4px 8px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg:
+    0 24px 48px -12px rgba(0, 0, 0, 0.45),
+    0 12px 24px -6px rgba(0, 0, 0, 0.25);
+  --shadow-xl:
+    0 32px 64px -16px rgba(0, 0, 0, 0.55),
+    0 16px 32px -8px rgba(0, 0, 0, 0.3);
+
+  // ---- Glassmorphism 核心系统 - 深色版 ----
+  --glass-bg: rgba(21, 21, 28, 0.7);
+  --glass-bg-solid: rgba(26, 26, 36, 0.9);
+  --glass-bg-hover: rgba(28, 28, 38, 0.8);
+  --glass-bg-dense: rgba(21, 21, 28, 0.95);
+
+  // 玻璃边框 - 微妙的白边
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-border-subtle: rgba(255, 255, 255, 0.05);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
-  --glass-shadow-lg: 0 16px 48px 0 rgba(0, 0, 0, 0.45);
-  --glass-highlight: rgba(255, 255, 255, 0.06);
-  --glass-blur: 16px;
+  --glass-border-glow: rgba(129, 140, 248, 0.35);
 
-  // Mesh Gradient Background - Dark
+  // 玻璃阴影 - 深邃的层次感
+  --glass-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --glass-shadow-lg:
+    0 20px 48px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --glass-shadow-xl:
+    0 32px 64px rgba(0, 0, 0, 0.55),
+    0 16px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  // 高光效果 - 深色下更微妙
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-highlight-strong: rgba(255, 255, 255, 0.08);
+
+  // 模糊值 - 深色下可以更强
+  --glass-blur: 24px;
+  --glass-blur-sm: 16px;
+  --glass-blur-lg: 40px;
+
+  // ---- Mesh Gradient 背景 - 神秘的暗夜风格 ----
   --page-bg-gradient:
-    radial-gradient(ellipse 80% 50% at 20% -20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% -10%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-    linear-gradient(180deg, #0f0f0f 0%, #151515 100%);
+    /* 左上角 - 深紫光晕 */
+    radial-gradient(
+      ellipse 100% 80% at 0% 0%,
+      rgba(129, 140, 248, 0.12) 0%,
+      transparent 50%
+    ),
+    /* 右上角 - 靛蓝光晕 */
+    radial-gradient(
+      ellipse 80% 60% at 100% 0%,
+      rgba(99, 102, 241, 0.1) 0%,
+      transparent 45%
+    ),
+    /* 右下角 - 青色光晕 */
+    radial-gradient(
+      ellipse 70% 50% at 100% 100%,
+      rgba(56, 189, 248, 0.08) 0%,
+      transparent 40%
+    ),
+    /* 左下角 - 紫红光晕 */
+    radial-gradient(
+      ellipse 60% 40% at 0% 100%,
+      rgba(167, 139, 250, 0.06) 0%,
+      transparent 35%
+    ),
+    /* 中央 - 微妙的深色中心 */
+    radial-gradient(
+      ellipse 60% 60% at 50% 50%,
+      rgba(21, 21, 28, 0.5) 0%,
+      transparent 70%
+    ),
+    /* 底色 */
+    linear-gradient(
+      180deg,
+      #0a0a0f 0%,
+      #0f0f14 50%,
+      #12121a 100%
+    );
+
+  // ---- 卡片悬浮渐变 ----
+  --card-hover-gradient: linear-gradient(
+    135deg,
+    rgba(129, 140, 248, 0.08) 0%,
+    rgba(167, 139, 250, 0.05) 100%
+  );
+
+  // ---- 彩色装饰渐变 ----
+  --gradient-primary: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+  --gradient-success: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);
+  --gradient-warning: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+  --gradient-danger: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);
+  --gradient-info: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+  --gradient-mesh: linear-gradient(
+    135deg,
+    rgba(129, 140, 248, 0.9) 0%,
+    rgba(167, 139, 250, 0.9) 50%,
+    rgba(56, 189, 248, 0.9) 100%
+  );
+}
+
+// ============================================
+// 全局动画关键帧
+// ============================================
+
+// 柔和呼吸动画
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+// 渐变流动动画
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// 微妙的浮动动画
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+// 光晕脉冲
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(99, 102, 241, 0.2),
+      0 0 40px rgba(99, 102, 241, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(99, 102, 241, 0.3),
+      0 0 60px rgba(99, 102, 241, 0.15);
+  }
+}
+
+// 进入动画 - 淡入上移
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 进入动画 - 缩放弹跳
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// 闪烁动画（用于连接状态）
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+// 旋转动画
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// 骨架屏闪烁
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
